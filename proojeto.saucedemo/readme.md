@@ -28,4 +28,4 @@ Antes de executar os testes, é necessário configurar o ambiente do desenvolvim
 Siga os passos abaixo para instalar e executar os testes:
 
 1. Clone o repositório para o seu ambiente local.
-2. Navegue até a raiz do projeto e execute o comando: mvn test -Dtest=Executa
+2. Navegue até a raiz do projeto e execute o comando: mvn test -Dtest=LoginTeste
