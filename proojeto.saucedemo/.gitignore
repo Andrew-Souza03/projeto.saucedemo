@@ -1,0 +1,20 @@
+# Arquivos de configuração do Eclipse
+.classpath
+.project
+.settings/
+
+# Arquivos de compilação do java
+*.class
+
+# Relatórios e saída de teste
+
+/test-output/
+cucumber-reports/
+extent-report/
+
+# Logs e arquivos temporários
+
+logs/
+*.log
+*.tmp
+/target/
