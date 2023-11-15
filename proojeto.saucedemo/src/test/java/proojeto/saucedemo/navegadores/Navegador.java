@@ -7,14 +7,14 @@ import proojeto.saucedemo.drivers.Drivers;
 
 public class Navegador extends Drivers{
 
-	public void abrirNavegador() {
+	public static void abrirNavegador() {
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://www.saucedemo.com/");
 	}
 	
-	public void fecharNavegador() {
+	public static void fecharNavegador() {
 		driver.quit();
 	}
 	

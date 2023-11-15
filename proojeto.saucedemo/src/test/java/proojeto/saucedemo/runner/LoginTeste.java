@@ -7,46 +7,60 @@ import org.junit.Test;
 import proojeto.saucedemo.elementos.Elementos;
 import proojeto.saucedemo.metodos.Metodos;
 import proojeto.saucedemo.navegadores.Navegador;
+import proojeto.saucedemo.pages.LoginPage;
 
-public class LoginTeste {
+public class LoginTeste extends Navegador{
 
-	Navegador navegador = new Navegador();
-	Metodos metodo = new Metodos();
 	Elementos elemento = new Elementos();
-	
-	
-	
+	LoginPage login = new LoginPage();
+
+	String usuario = "standard_user";
+	String senha = "secret_sauce";
+	String usuarioInvalido = "userInvalido";
+	String senhaInvalida = "";
+	String usuarioBloqueado = "locked_out_user";
+
 	@Before
 	public void inicioTeste() {
-		navegador.abrirNavegador();
+		Navegador.abrirNavegador();
 	}
-	
+
 	@After
 	public void finalizarTeste() {
-		navegador.fecharNavegador();
+		Navegador.fecharNavegador();
 	}
-	
+
 	@Test
 	public void loginValido() {
-		metodo.escrever(elemento.nome, "standard_user");
-		metodo.escrever(elemento.senha, "secret_sauce");
-		metodo.clicar(elemento.btnLogin);
+		login.realizarLogin(usuario, senha);
+        Metodos.takeScreenshot(driver, "screenshot_loginSucesso.png");
 	}
+
 	
 	@Test
 	public void loginUsuarioInvalido() {
-		metodo.escrever(elemento.nome, "userInvalido");
-		metodo.escrever(elemento.senha, "secret_sauce");
-		metodo.clicar(elemento.btnLogin);
-		metodo.validarmsg(elemento.msgErro,"Epic sadface: Username and password do not match any user in this service");
+
+		login.realizarLogin(usuarioInvalido, senha);
+        Metodos.takeScreenshot(driver, "screenshot_loginInvalido.png");
+		Metodos.validarmsg(elemento.msgErro,
+				"Epic sadface: Username and password do not match any user in this service");
+	}
+
+	@Test
+	public void loginUsuarioBloqueado() {
+		
+		login.realizarLogin(usuarioBloqueado, senha);
+        Metodos.takeScreenshot(driver, "screenshot_loginBloqueado.png");
+		Metodos.validarmsg(elemento.msgErro, "Epic sadface: Sorry, this user has been locked out.");
 	}
 	
 	@Test
-	public void loginUsuarioBloqueado() {
-		metodo.escrever(elemento.nome, "locked_out_user");
-		metodo.escrever(elemento.senha, "secret_sauce");
-		metodo.clicar(elemento.btnLogin);
-		metodo.validarmsg(elemento.msgErro,"Epic sadface: Sorry, this user has been locked out.");
+	public void loginUsuarioEmBranco() {
+		
+		login.realizarLogin("", "");
+        Metodos.takeScreenshot(driver, "screenshot_loginEmBranco.png");
+		Metodos.validarmsg(elemento.msgErro, "Epic sadface: Username is required");
 	}
+	
 
 }
